@@ -1,6 +1,7 @@
 <?php
 
-namespace EFComputing;
+namespace ericfelder\BaseNumber;
+
 use Exception;
 
 /**
@@ -8,7 +9,6 @@ use Exception;
  *
  * BaseNumber can be used to convert numbers of different bases to the same format.
  *
- * @package EFComputing
  * @author  Eric Felder <ericfelder@me.com>
  */
 
@@ -62,6 +62,8 @@ class BaseNumber
     }
 
     /**
+     * Finds the specified value inside and array and returns the index of that value
+     *
      * @param $array Array passed to function
      * @param $value Data you are searching for in $array
      * @return int Index of $value in $array
