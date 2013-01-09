@@ -22,7 +22,34 @@ class BaseNumber
         'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
     /**
-     * Converts a number from a decimal to the specified base format (2-36)
+     * Converts a number from the specified base (2-62) to decimal
+     *
+     * @param string $baseNumber Number to be converted
+     * @param int $base Base of number to be converted
+     * @return int Decimal form of number inputted
+     * @throws \Exception Not all characters suded in base character set - Thrown if invalid characters used
+     */
+    private function baseNumToDecimal($baseNumber, $base)
+    {
+        $decimal = 0;
+        $stringLength = strlen($baseNumber);
+        for ($i = 0; $i < $stringLength; $i++) {
+            $lastChar = substr($baseNumber, -1);
+            $index = $this->getIndexOfValue($this->Values, $lastChar);
+            if ($index === null) {
+                throw new Exception('Not all characters used in base character set.');
+            } elseif ($index >= $base) {
+                throw new Exception('Not all characters used in base character set.');
+            }
+            $decimal += ($index * pow($base, $i));
+            $baseNumber = substr($baseNumber, 0, -1);
+        }
+
+        return $decimal;
+    }
+
+    /**
+     * Converts a number from a decimal to the specified base format (2-62)
      *
      * @param int $decimal Decimal number to be converted
      * @param int $base Base of the number to be converted to
@@ -79,25 +106,6 @@ class BaseNumber
         }
 
         return $index;
-    }
-
-    private function baseNumToDecimal($baseNumber, $base)
-    {
-        $decimal = 0;
-        $stringLength = strlen($baseNumber);
-        for ($i = 0; $i < $stringLength; $i++) {
-            $lastChar = substr($baseNumber, -1);
-            $index = $this->getIndexOfValue($this->Values, $lastChar);
-            if ($index === null) {
-                throw new Exception('Not all characters used in base character set.');
-            } elseif ($index >= $base) {
-                throw new Exception('Not all characters used in base character set.');
-            }
-            $decimal += ($index * pow($base, $i));
-            $baseNumber = substr($baseNumber, 0, -1);
-        }
-
-        return $decimal;
     }
 
     /**
@@ -173,6 +181,11 @@ class BaseNumber
         if (isset($this->Base)) {
             $this->Decimal = $this->baseNumToDecimal($this->BaseString, $this->Base);
         }
+    }
+
+    public function setBinary($binary)
+    {
+
     }
 
     public function setDecimal($decimal)
