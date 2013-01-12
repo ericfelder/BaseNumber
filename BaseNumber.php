@@ -165,6 +165,7 @@ class BaseNumber
         }
     }
 
+    //write function out
     public function setBase($base)
     {
         $this->Base = $base;
@@ -195,4 +196,14 @@ class BaseNumber
             $this->BaseString = $this->decimalToBaseNum($this->Decimal, $this->Base);
         }
     }
+
+    public function setHexadecimal($hexadecimal)
+    {
+
+    }
+}
+
+class InvalidCharacterException extends Exception
+{
+
 }
